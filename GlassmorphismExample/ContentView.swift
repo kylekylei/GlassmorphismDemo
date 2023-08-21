@@ -8,41 +8,66 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    let engraveWhite = Color.white.opacity(0.6)
+
     var body: some View {
         ZStack{
             Color.black.ignoresSafeArea()
             BackgroundView()
-            ForegroundView()
-          
-            VStack(alignment: .leading) {
-                HStack {
-                    Spacer()
-                    Image(systemName: "xmark.square")
-                        .foregroundStyle(.white)
-                        .scaleEffect(CGSize(width: 0.9, height: 0.9))
-                        .foregroundColor(engraveWhite)
-                }
-                Spacer()
-                Text("HybridX")
-                    .font(.title3)
-                    .bold()
-                    .foregroundColor(engraveWhite)
-                    .padding(.bottom, 2)
-                Text("UI design x SwiftuI")
-                    .textCase(.uppercase)
-                    .font(.caption2)
-                    .foregroundColor(engraveWhite)
-            }
-            .padding(20)
-            .frame(width: 300, height: 180)
+            CardView()
+            InfoView()
         }
     }
 }
 
 #Preview {
     ContentView()
+}
+
+struct InfoView: View {
+    let engraveWhite = Color.white.opacity(0.6)
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Spacer()
+                Image(systemName: "xmark.square")
+                    .foregroundColor(engraveWhite)
+            }
+            Spacer()
+            Text("HybridX")
+                .font(.title3)
+                .bold()
+                .foregroundColor(engraveWhite)
+                .padding(.bottom, 2)
+            Text("UI design x SwiftuI")
+                .textCase(.uppercase)
+                .font(.caption2)
+                .foregroundColor(engraveWhite)
+        }
+        .padding(20)
+        .frame(width: 300, height: 180)
+    }
+}
+
+
+
+struct CardView: View {
+    let gradientSurface = LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
+    let gradientBorder = LinearGradient(colors: [.white.opacity(0.5), .white.opacity(0.0), .white.opacity(0.0), .green.opacity(0.0), .green.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing)
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 15, style: .continuous)
+            .foregroundStyle(gradientSurface)
+            .background(.ultraThinMaterial)
+            .mask( RoundedRectangle(cornerRadius: 15, style: .circular).foregroundColor(.black) )
+            .overlay(
+                RoundedRectangle(cornerRadius: 15, style: .circular)
+                    .stroke(lineWidth: 1.5)
+                    .foregroundStyle(gradientBorder)
+                    .opacity(0.8)
+            )
+            .frame(width: 300, height: 180)
+            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 8)
+    }
 }
 
 struct BackgroundView: View {
@@ -82,22 +107,3 @@ struct CircleShape: View {
 
 
 
-struct ForegroundView: View {
-    let gradientSurface = LinearGradient(colors: [.white.opacity(0.1), .clear], startPoint: .topLeading, endPoint: .bottomTrailing)
-    let gradientBorder = LinearGradient(colors: [.white.opacity(0.5), .white.opacity(0.0), .white.opacity(0.0), .green.opacity(0.0), .green.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing)
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 15, style: .continuous)
-            .foregroundStyle(gradientSurface)
-            .background(.ultraThinMaterial)
-            .mask( RoundedRectangle(cornerRadius: 15, style: .circular).foregroundColor(.black) )
-            .overlay(
-                RoundedRectangle(cornerRadius: 15, style: .circular)
-                    .stroke(lineWidth: 1.5)
-                    .foregroundStyle(gradientBorder)
-                    .opacity(0.8)
-            )
-            .frame(width: 300, height: 180)
-            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 8)
-    }
-}
